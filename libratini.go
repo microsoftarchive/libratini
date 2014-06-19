@@ -5,7 +5,6 @@ import (
 	"github.com/go-martini/martini"
 	"github.com/rcrowley/go-librato"
 	"net/http"
-	"sync"
 	"time"
 )
 
@@ -15,19 +14,6 @@ type Config struct {
 	Source  string
 	Token   string
 	User    string
-}
-
-type Counter struct {
-	mutex   sync.Mutex
-	count   int64
-	channel chan int64
-}
-
-func (counter *Counter) Increment() {
-	counter.mutex.Lock()
-	counter.count++
-	counter.channel <- counter.count
-	counter.mutex.Unlock()
 }
 
 func Middleware(config Config) martini.Handler {
