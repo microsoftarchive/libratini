@@ -1,6 +1,6 @@
 package libratini
 
-import "github.com/rcrowley/go-librato"
+import "github.com/wunderlist/go-librato"
 
 type Dashboard struct {
 	config   Config
