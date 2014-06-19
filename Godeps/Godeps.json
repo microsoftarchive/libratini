@@ -1,0 +1,18 @@
+{
+	"ImportPath": "github.com/wunderlist/libratini",
+	"GoVersion": "go1.3",
+	"Deps": [
+		{
+			"ImportPath": "github.com/codegangsta/inject",
+			"Rev": "37d7f8432a3e684eef9b2edece76bdfa6ac85b39"
+		},
+		{
+			"ImportPath": "github.com/go-martini/martini",
+			"Rev": "9af2cc2f8861c10bad0df25c8ded19fc9cd9b74e"
+		},
+		{
+			"ImportPath": "github.com/rcrowley/go-librato",
+			"Rev": "78f41020570a8bbdbb71c360a82da67adc2ee819"
+		}
+	]
+}
