@@ -30,17 +30,17 @@ func Middleware(config Config) martini.Handler {
 		counter.Increment()
 	}
 
-	return func(response http.ResponseWriter, request *http.Request, context martini.Context) {
+	return func(response http.ResponseWriter, context martini.Context) {
 		start := time.Now()
-		rw := response.(martini.ResponseWriter)
+		defer (func() {
+			rw := response.(martini.ResponseWriter)
+			status := rw.Status()
+			counterName := fmt.Sprintf("%s%d.count", config.Prefix, status)
+			incrementCounter(counterName)
+			requestTime <- int64(time.Since(start) / time.Millisecond)
+		})()
+
 		context.Next()
 
-		status := rw.Status()
-		counterName := fmt.Sprintf("%s%d.count", config.Prefix, status)
-		incrementCounter(counterName)
-
-		if status == 200 || status == 201 {
-			requestTime <- int64(time.Since(start) / time.Millisecond)
-		}
 	}
 }
