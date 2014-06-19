@@ -18,7 +18,7 @@ type Config struct {
 
 func Middleware(config Config) martini.Handler {
 	api := librato.NewCollatedMetrics(config.User, config.Token, config.Source, config.Collate)
-	requestTime := api.GetGauge(config.Prefix + "2xx.time")
+	requestTime := api.GetGauge(config.Prefix + "time")
 	counters := make(map[string]*Counter)
 
 	incrementCounter := func(name string) {
