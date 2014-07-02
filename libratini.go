@@ -9,7 +9,7 @@ import (
 
 func Middleware(config Config) martini.Handler {
 	dashboard := NewDashboard(config)
-	timeGauge := dashboard.GetGauge(config.Prefix + "time")
+	timeGauge := dashboard.GetGauge("time")
 
 	return func(response http.ResponseWriter, context martini.Context) {
 		start := time.Now()
@@ -18,7 +18,7 @@ func Middleware(config Config) martini.Handler {
 		status := response.(martini.ResponseWriter).Status()
 
 		go (func() {
-			counterName := fmt.Sprintf("%s%d.count", config.Prefix, status)
+			counterName := fmt.Sprintf("%d.count", status)
 			counter := dashboard.GetCounter(counterName)
 			counter.Increment()
 

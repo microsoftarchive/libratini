@@ -1,6 +1,9 @@
 package libratini
 
-import "github.com/wunderlist/go-librato"
+import (
+	"fmt"
+	"github.com/wunderlist/go-librato"
+)
 
 type Dashboard struct {
 	config   Config
@@ -18,6 +21,7 @@ func NewDashboard(config Config) *Dashboard {
 }
 
 func (d *Dashboard) GetGauge(name string) *Gauge {
+	name = fmt.Sprintf("%s%s", d.config.Prefix, name)
 	gauge, exists := d.gauges[name]
 	if exists == false {
 		channel := d.api.NewGauge(name)
@@ -28,6 +32,7 @@ func (d *Dashboard) GetGauge(name string) *Gauge {
 }
 
 func (d *Dashboard) GetCounter(name string) *Counter {
+	name = fmt.Sprintf("%s%s", d.config.Prefix, name)
 	counter, exists := d.counters[name]
 	if exists == false {
 		channel := d.api.NewCounter(name)
