@@ -2,7 +2,7 @@ package libratini
 
 import (
 	"fmt"
-	"github.com/wunderlist/go-librato"
+	"github.com/rcrowley/go-librato"
 )
 
 type Dashboard struct {
